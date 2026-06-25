@@ -6,6 +6,7 @@ class DailyLog(Base):
     __tablename__ = "daily_logs"
 
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer)
     date = Column(String)
     protein_target = Column(Integer)
     total_protein = Column(Integer)

@@ -76,17 +76,23 @@ async def track_protein(
             "progress": progress
         }
     )
-
-
 @router.post("/save-log")
 def save_log(
+    request: Request,
     protein_target: int = Form(...),
     total_protein: int = Form(...),
     remaining_protein: int = Form(...)
 ):
+    if not request.session.get("user_id"):
+        return RedirectResponse(
+            url="/user-login",
+            status_code=303
+        )
+
     db = SessionLocal()
 
     log = DailyLog(
+        user_id=request.session["user_id"],
         date=datetime.now().strftime("%d-%m-%Y"),
         protein_target=protein_target,
         total_protein=total_protein,
