@@ -1,6 +1,8 @@
 from database.database import engine, SessionLocal
 from models.food import Base, Food
 from models.daily_log import DailyLog
+from models.user import User
+
 
 Base.metadata.create_all(bind=engine)
 
