@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Protein Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow p-4">
+
+        <h1 class="text-center text-success">Protein Result</h1>
+
+        <div class="alert alert-info mt-3">
+            <h4>Summary</h4>
+            <p><b>Protein Target:</b> {{ protein_target }}g</p>
+            <p><b>Protein Consumed:</b> {{ total_protein }}g</p>
+            <p><b>Protein Remaining:</b> {{ remaining_protein }}g</p>
+        </div>
+
+        <h4>{{ status }}</h4>
+
+        <h3 class="mt-4">Progress</h3>
+
+        <div class="progress" style="height: 30px;">
+            <div class="progress-bar bg-success" style="width: {{ progress }}%;">
+                {{ progress }}%
+            </div>
+        </div>
+
+        <h3 class="mt-4">Protein Breakdown</h3>
+
+        <ul class="list-group">
+            {% for food, amount in protein_breakdown.items() %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ food }}</span>
+                    <strong>{{ amount }}g</strong>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="text-center mt-4">
+            <form action="/save-log" method="post">
+                <input type="hidden" name="protein_target" value="{{ protein_target }}">
+                <input type="hidden" name="total_protein" value="{{ total_protein }}">
+                <input type="hidden" name="remaining_protein" value="{{ remaining_protein }}">
+
+                <button type="submit" class="btn btn-success">
+                    Save Today's Progress
+                </button>
+            </form>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="/tracker?target={{ protein_target }}" class="btn btn-primary">Track Again</a>
+            <a href="/" class="btn btn-outline-secondary">Back Home</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
